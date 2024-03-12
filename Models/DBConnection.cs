@@ -27,5 +27,26 @@ namespace MvcTodo.Models
                 throw ex;
             }
         }
+
+        public static bool Logutilisateur(Utilisateur utilisateur)
+        {
+            var req = $"SELECT * FROM public.\"Utilisateur\" WHERE name = '{utilisateur.Name}' AND \"password\"='{utilisateur.Password}';";
+            var hasUser = false;
+
+            try
+            {
+                connectionstring.Open();
+                var cmd = new NpgsqlCommand(req, connectionstring);
+                var reader = cmd.ExecuteReader();
+                hasUser = reader.HasRows;
+                connectionstring.Close();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return hasUser;
+        }
     }
 }

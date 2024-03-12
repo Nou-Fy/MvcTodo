@@ -19,9 +19,17 @@ namespace TacheMVC.Controllers
             DBConnection.InsererUtilisateur(utilisateur);
             return RedirectToAction("Index");
         }
-        public ActionResult login(Utilisateur utilisateur)
+        public ActionResult Login(Utilisateur utilisateur)
         {
-            return View();
+            if (DBConnection.Logutilisateur(utilisateur))
+            {
+                return RedirectToRoute("Accueil");
+            }
+            else
+            {
+                return RedirectToRoute("FirstPage");
+            }
+            
         }
     }
 }
