@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvcTodo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,26 @@ namespace MvcTodo.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Tachelist()
+        {
+            //DBconnection.listetache(Session["username"].ToString())
+            if (Session["username"] != null)
+            {
+                return View(DBConnection.listetache(Session["username"].ToString()));
+            }
+            else
+            {
+                return RedirectToRoute("Accueil");
+            }
+
+        }
+
+        public ActionResult Supprimer(int Tacheid)
+        {
+            DBConnection.SuppresionTache(Tacheid);
+            return RedirectToRoute("Accueil");
         }
 
         // GET: Tache/Details/5

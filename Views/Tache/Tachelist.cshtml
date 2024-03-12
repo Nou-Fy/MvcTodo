@@ -8,7 +8,7 @@
 <h2>Tachelist</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtask" value="Ajouter" />
 </p>
 <table class="table">
     <tr>
@@ -24,23 +24,56 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Desription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Tacheid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Tacheid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Tacheid })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td id="description_@item.Tacheid">
+                @Html.DisplayFor(modelItem => item.Desription)
+            </td>
+            <td id="state_@item.Tacheid">
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.ActionLink("Modifier", "Modifier", new { id = item.Tacheid }) |
+
+                @Html.ActionLink("Supprimer", "Supprimer", new { id = item.Tacheid })
+            </td>
+        </tr>
+    }
+
+    <div class="modal fade" id="addtask">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tache à faire</h4>
+                </div>
+                @using (Html.BeginForm("Create", "Tache"))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-body">
+
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="text" name="description" value="" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
 
 </table>
