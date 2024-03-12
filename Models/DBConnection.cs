@@ -14,7 +14,7 @@ namespace MvcTodo.Models
 
         public static void InsererUtilisateur(Utilisateur utilisateur)
         {
-            var req = $"INSERT INTO public.\"Utilisateur\"(\"NomUtilisateur\", password) VALUES ('{utilisateur.Name}','{utilisateur.Password}');";
+            var req = $"INSERT INTO public.\"Utilisateur\"(\"name\", password) VALUES ('{utilisateur.Name}','{utilisateur.Password}');";
             try
             {
                 connectionstring.Open();
